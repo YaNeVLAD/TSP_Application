@@ -67,7 +67,7 @@
     <ClInclude Include="src\ACO.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\BrootForce.h">
+    <ClInclude Include="src\BruteForceSearch.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Color.h">

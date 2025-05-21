@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "ACO.h"
-#include "BrootForce.h"
+#include "BruteForceSearch.h"
 #include "Matrix.h"
 
 struct TSPResults
