@@ -29,7 +29,7 @@ void UIManager::Update(sf::Clock& clock)
 	ImGui::SFML::Update(*m_window, clock.restart());
 }
 
-void UIManager::RenderGUI()
+void UIManager::Render()
 {
 	ImGui::SFML::Render(*m_window);
 }

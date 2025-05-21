@@ -65,12 +65,12 @@ TSPResults TSPManager::GetCurrentResults()
 	return m_currentResults;
 }
 
-Matrix<double> TSPManager::CreateDistanceMatrix(const std::vector<salesman_problem::City>& cities_ref)
+Matrix<double> TSPManager::CreateDistanceMatrix(const std::vector<salesman_problem::City>& cities)
 {
-	size_t n = cities_ref.size();
+	size_t n = cities.size();
 	Matrix<double> distances(n, n);
-	distances.ForEach([&cities_ref](size_t i, size_t j) {
-		return cities_ref[i].pos.DistanceTo(cities_ref[j].pos);
+	distances.ForEach([&cities](size_t i, size_t j) {
+		return cities[i].pos.DistanceTo(cities[j].pos);
 	});
 	return distances;
 }

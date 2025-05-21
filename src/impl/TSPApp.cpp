@@ -101,7 +101,7 @@ void TSPApp::Run()
 		}
 
 		// Рендеринг ImGui
-		m_uiManager.RenderGUI();
+		m_uiManager.Render();
 		m_window.Display();
 	}
 }

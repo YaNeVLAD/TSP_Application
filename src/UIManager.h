@@ -18,11 +18,11 @@ public:
 	UIManager(TSPManager& manager, const Window& window);
 	~UIManager();
 
-	void Update(sf::Clock& clock); // Обновление ImGui
-	void RenderGUI(); // Рендеринг ImGui
-	void ProcessEvents(sf::Event& event); // Обработка событий ImGui
+	void Update(sf::Clock& clock);
+	void Render();
+	void ProcessEvents(sf::Event& event);
 
-	void RenderUIElements(); // Отображение элементов управления TSP
+	void RenderUIElements();
 
 	bool shouldShowCities() const { return m_showCities; }
 	bool ShouldShowACOTour() const { return m_showACOTour.load(); }
