@@ -6,7 +6,7 @@
 
 TSPApp::TSPApp()
 	: m_window(1200, 800, "Interactive TSP Visualization")
-	, m_uiManager(m_tspManager, m_window)
+	, m_guiManager(m_tspManager, m_window)
 	, m_selectedCityIndex(-1)
 	, m_draggingCity(false)
 {
@@ -38,38 +38,26 @@ void TSPApp::Run()
 	sf::Clock clock;
 	while (m_window.IsOpen())
 	{
-		// Обработка событий SFML
 		sf::Event event;
 		while (m_window.GetRaw()->pollEvent(event))
-		{ // ImGui::SFML::ProcessEvent нужен sf::Event
-			m_uiManager.ProcessEvents(event); // Сначала ImGui, чтобы он мог "поглотить" события
-			// Теперь Window сам будет обрабатывать события, если они не были поглощены ImGui
-			// Мы уже зарегистрировали колбэки, так что дополнительные вызовы handleEvents не нужны,
-			// если мы хотим, чтобы ImGui всегда был в приоритете.
-			// Просто передаем событие в ImGui и затем, если событие не поглощено ImGui,
-			// вызываем наши обработчики.
-			// В этом случае, логика колбэков уже содержит проверку ImGui::IsWindowHovered()
-			// Так что просто вызываем handleEvents.
+		{
+			// Let ImGui handle events first
+			m_guiManager.ProcessEvents(event);
 			m_window.HandleEvents(event);
 		}
-		// Теперь вызываем handleEvents() Window, который будет вызывать колбэки, если нужно
+		m_guiManager.Update(clock);
 
-		// Обновление ImGui
-		m_uiManager.Update(clock);
-
-		// Проверяем, нужна ли пересчет
-		if (m_uiManager.PopRecalculationTrigger())
+		if (m_guiManager.PopRecalculationTrigger())
 		{
 			m_tspManager.TriggerCalculation();
 		}
 
-		m_uiManager.RenderUIElements(); // Отображение элементов управления ImGui
+		m_guiManager.Render();
 
-		m_window.Clear(Color(18, 33, 43)); // Очистка фона
+		m_window.Clear(Color(18, 33, 43));
 
-		// Отрисовка городов
 		const auto& cities = m_tspManager.GetCities();
-		if (m_uiManager.shouldShowCities())
+		if (m_guiManager.ShouldShowCities())
 		{
 			for (size_t i = 0; i < cities.size(); ++i)
 			{
@@ -79,29 +67,13 @@ void TSPApp::Run()
 			}
 		}
 
-		// Отрисовка путей
 		TSPResults currentResults = m_tspManager.GetCurrentResults();
-		if (m_uiManager.ShouldShowACOTour())
-		{
-			for (size_t i = 0; i < currentResults.acoTour.size(); ++i)
-			{
-				const auto& p1 = currentResults.acoTour[i].pos;
-				const auto& p2 = currentResults.acoTour[(i + 1) % currentResults.acoTour.size()].pos;
-				m_window.DrawLine({ p1, p2 }, Color::Green);
-			}
-		}
-		if (m_uiManager.ShouldShowBruteForceTour())
-		{
-			for (size_t i = 0; i < currentResults.bruteForceTourIndices.size(); ++i)
-			{
-				const auto& p1 = currentResults.cities[currentResults.bruteForceTourIndices[i]].pos;
-				const auto& p2 = currentResults.cities[currentResults.bruteForceTourIndices[(i + 1) % currentResults.bruteForceTourIndices.size()]].pos;
-				m_window.DrawLine({ p1, p2 }, Color::Red);
-			}
-		}
 
-		// Рендеринг ImGui
-		m_uiManager.Render();
+		DrawAcoTour(currentResults);
+
+		DrawBruteForceTour(currentResults);
+
+		m_guiManager.Display();
 		m_window.Display();
 	}
 }
@@ -140,5 +112,31 @@ void TSPApp::onMouseMoved(float worldX, float worldY)
 	if (m_draggingCity && m_selectedCityIndex != -1)
 	{
 		m_tspManager.UpdateCityPosition(m_selectedCityIndex, worldX, worldY);
+	}
+}
+
+void TSPApp::DrawAcoTour(const TSPResults& results)
+{
+	if (m_guiManager.ShouldShowACOTour())
+	{
+		for (size_t i = 0; i < results.acoTour.size(); ++i)
+		{
+			const auto& p1 = results.acoTour[i].pos;
+			const auto& p2 = results.acoTour[(i + 1) % results.acoTour.size()].pos;
+			m_window.DrawLine({ p1, p2 }, Color::Green);
+		}
+	}
+}
+
+void TSPApp::DrawBruteForceTour(const TSPResults& results)
+{
+	if (m_guiManager.ShouldShowBruteForceTour())
+	{
+		for (size_t i = 0; i < results.bruteForceTourIndices.size(); ++i)
+		{
+			const auto& p1 = results.cities[results.bruteForceTourIndices[i]].pos;
+			const auto& p2 = results.cities[results.bruteForceTourIndices[(i + 1) % results.bruteForceTourIndices.size()]].pos;
+			m_window.DrawLine({ p1, p2 }, Color::Red);
+		}
 	}
 }

@@ -16,7 +16,7 @@ public:
 private:
 	Window m_window;
 	TSPManager m_tspManager;
-	UIManager m_uiManager;
+	GUIManager m_guiManager;
 
 	int m_selectedCityIndex;
 	bool m_draggingCity;
@@ -26,4 +26,8 @@ private:
 	void onMouseReleased(int button, float, float);
 
 	void onMouseMoved(float worldX, float worldY);
+
+	void DrawAcoTour(const TSPResults& results);
+
+	void DrawBruteForceTour(const TSPResults& results);
 };

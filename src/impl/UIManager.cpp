@@ -4,7 +4,7 @@
 #include "imgui.h"
 #include <SFML/Graphics.hpp>
 
-UIManager::UIManager(TSPManager& manager, const Window& window)
+GUIManager::GUIManager(TSPManager& manager, const Window& window)
 	: m_tspManager(manager)
 	, m_window(window.GetRaw())
 	, m_showCities(true)
@@ -19,27 +19,27 @@ UIManager::UIManager(TSPManager& manager, const Window& window)
 	}
 }
 
-UIManager::~UIManager()
+GUIManager::~GUIManager()
 {
 	ImGui::SFML::Shutdown();
 }
 
-void UIManager::Update(sf::Clock& clock)
+void GUIManager::Update(sf::Clock& clock)
 {
 	ImGui::SFML::Update(*m_window, clock.restart());
 }
 
-void UIManager::Render()
+void GUIManager::Display()
 {
 	ImGui::SFML::Render(*m_window);
 }
 
-void UIManager::ProcessEvents(sf::Event& event)
+void GUIManager::ProcessEvents(sf::Event& event)
 {
 	ImGui::SFML::ProcessEvent(event);
 }
 
-void UIManager::RenderUIElements()
+void GUIManager::Render()
 {
 	ImGui::Begin("TSP Controls");
 	ImGui::Text("Cities: %zu", m_tspManager.GetCityCount());
@@ -105,7 +105,7 @@ void UIManager::RenderUIElements()
 	ImGui::End();
 }
 
-bool UIManager::PopRecalculationTrigger()
+bool GUIManager::PopRecalculationTrigger()
 {
 	bool triggered = m_recalculationTriggeredByUI;
 	m_recalculationTriggeredByUI = false;

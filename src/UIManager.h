@@ -12,19 +12,19 @@ class Clock;
 class Event;
 } // namespace sf
 
-class UIManager
+class GUIManager
 {
 public:
-	UIManager(TSPManager& manager, const Window& window);
-	~UIManager();
+	GUIManager(TSPManager& manager, const Window& window);
+	~GUIManager();
 
 	void Update(sf::Clock& clock);
-	void Render();
+	void Display();
 	void ProcessEvents(sf::Event& event);
 
-	void RenderUIElements();
+	void Render();
 
-	bool shouldShowCities() const { return m_showCities; }
+	bool ShouldShowCities() const { return m_showCities; }
 	bool ShouldShowACOTour() const { return m_showACOTour.load(); }
 	bool ShouldShowBruteForceTour() const { return m_showBruteForceTour.load(); }
 	bool PopRecalculationTrigger();

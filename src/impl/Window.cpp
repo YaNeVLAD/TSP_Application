@@ -42,7 +42,7 @@ void Window::HandleEvents(const sf::Event& event)
 	}
 	else if (event.type == sf::Event::MouseButtonPressed)
 	{
-		shapes::Point clickPos = { event.mouseButton.x, event.mouseButton.y };
+		shapes::Point clickPos = { (float)event.mouseButton.x, (float)event.mouseButton.y };
 		auto [worldX, worldY] = ToWorldPos(clickPos);
 		if (m_mousePressedCallback)
 		{
@@ -51,7 +51,7 @@ void Window::HandleEvents(const sf::Event& event)
 	}
 	else if (event.type == sf::Event::MouseButtonReleased)
 	{
-		shapes::Point clickPos = { event.mouseButton.x, event.mouseButton.y };
+		shapes::Point clickPos = { (float)event.mouseButton.x, (float)event.mouseButton.y };
 		auto [worldX, worldY] = ToWorldPos(clickPos);
 		if (m_mouseReleasedCallback)
 		{
@@ -60,7 +60,7 @@ void Window::HandleEvents(const sf::Event& event)
 	}
 	else if (event.type == sf::Event::MouseMoved)
 	{
-		shapes::Point clickPos = { event.mouseMove.x, event.mouseMove.y };
+		shapes::Point clickPos = { (float)event.mouseMove.x, (float)event.mouseMove.y };
 		auto [worldX, worldY] = ToWorldPos(clickPos);
 		if (m_mouseMovedCallback)
 		{
@@ -113,7 +113,7 @@ void Window::DrawLine(shapes::Segment seg, Color color) const
 
 shapes::Point Window::ToWorldPos(shapes::Point p)
 {
-	sf::Vector2f mouseScreenPos = m_window->mapPixelToCoords(sf::Vector2i(p.x, p.y));
+	sf::Vector2f mouseScreenPos = m_window->mapPixelToCoords(sf::Vector2i((int)p.x, (int)p.y));
 	float worldX = (mouseScreenPos.x - m_offset.first) / m_scale;
 	float worldY = (mouseScreenPos.y - m_offset.second) / m_scale;
 	return { worldX, worldY };
