@@ -114,6 +114,10 @@ void TSPManager::CalculationThreadFunc()
 			{
 				size_t n = citiesToSolve.size();
 				auto spec = salesman_problem::ACOSpec::MMAS(n);
+				if (m_acoIsACS.load())
+				{
+					spec = salesman_problem::ACOSpec::ACS();
+				}
 				salesman_problem::AntColonyOptimization aco(citiesToSolve, gen, spec);
 				aco.SetCities(citiesToSolve);
 				aco.Solve();

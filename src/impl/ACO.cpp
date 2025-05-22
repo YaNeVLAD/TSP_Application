@@ -1,5 +1,8 @@
 #include "../ACO.h"
 
+#include <limits>
+#include <string>
+
 using namespace salesman_problem;
 
 AntColonyOptimization::AntColonyOptimization(const std::vector<City>& cities, std::mt19937& rd, ACOSpec spec)
@@ -8,7 +11,7 @@ AntColonyOptimization::AntColonyOptimization(const std::vector<City>& cities, st
 	SetCities(cities);
 }
 
-AntColonyOptimization::AntColonyOptimization(size_t cityCount, std::mt19937& randomDevice, ACOSpec spec)
+AntColonyOptimization::AntColonyOptimization(size_t cityCount, std::mt19937& rd, ACOSpec spec)
 	: m_cityCount(cityCount)
 	, m_antsCount(spec.antsCount)
 	, m_alpha(spec.alpha)
@@ -18,7 +21,7 @@ AntColonyOptimization::AntColonyOptimization(size_t cityCount, std::mt19937& ran
 	, m_maxIterations(spec.maxIterations)
 	, m_initialPheromon(spec.initialPheromone)
 	, m_bestTourLen(std::numeric_limits<double>::max())
-	, m_random(randomDevice)
+	, m_random(rd)
 {
 }
 

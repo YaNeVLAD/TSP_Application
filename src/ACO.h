@@ -1,14 +1,11 @@
 #ifndef ACO_H
 #define ACO_H
 
-#include <limits>
 #include <random>
-#include <string>
 #include <vector>
 
 #include "Matrix.h"
 #include "Shapes.h"
-#include <iostream>
 
 namespace salesman_problem
 {
@@ -67,7 +64,7 @@ public:
 
 	AntColonyOptimization(
 		size_t cityCount,
-		std::mt19937& randomDevice,
+		std::mt19937& rd,
 		ACOSpec spec = ACOSpec::ACS());
 
 	void SetCities(const std::vector<City>& cities);

@@ -29,7 +29,7 @@
     <ClCompile Include="src\impl\TSPManager.cpp">
       <Filter>src\impl</Filter>
     </ClCompile>
-    <ClCompile Include="src\impl\UIManager.cpp">
+    <ClCompile Include="src\impl\GUIManager.cpp">
       <Filter>src\impl</Filter>
     </ClCompile>
     <ClCompile Include="src\impl\Window.cpp">
@@ -85,7 +85,7 @@
     <ClInclude Include="src\TSPManager.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\UIManager.h">
+    <ClInclude Include="src\GUIManager.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Window.h">

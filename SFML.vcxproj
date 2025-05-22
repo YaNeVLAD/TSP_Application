@@ -170,7 +170,7 @@
     <ClCompile Include="src\impl\Color.cpp" />
     <ClCompile Include="src\impl\Window.cpp" />
     <ClCompile Include="src\impl\TSPManager.cpp" />
-    <ClCompile Include="src\impl\UIManager.cpp" />
+    <ClCompile Include="src\impl\GUIManager.cpp" />
     <ClCompile Include="src\impl\TSPApp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,7 @@
     <ClInclude Include="src\Shapes.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\TSPManager.h" />
-    <ClInclude Include="src\UIManager.h" />
+    <ClInclude Include="src\GUIManager.h" />
     <ClInclude Include="src\TSPApp.h" />
   </ItemGroup>
   <ItemGroup>

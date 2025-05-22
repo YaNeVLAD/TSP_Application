@@ -40,8 +40,11 @@ public:
 
 	void SetEnableACOCalculation(bool enable) { m_enableACOCalculation.store(enable); }
 	void SetEnableBruteForceCalculation(bool enable) { m_enableBruteForceCalculation.store(enable); }
+	void SetIsACSEnabled(bool enabled) { m_acoIsACS.store(enabled); }
+
 	bool IsACOCalculationEnabled() const { return m_enableACOCalculation.load(); }
 	bool IsBruteForceCalculationEnabled() const { return m_enableBruteForceCalculation.load(); }
+	bool IsACSEnabled() const { return m_acoIsACS.load(); }
 
 private:
 	std::vector<salesman_problem::City> m_cities;
@@ -53,6 +56,7 @@ private:
 
 	std::atomic_bool m_enableACOCalculation;
 	std::atomic_bool m_enableBruteForceCalculation;
+	std::atomic_bool m_acoIsACS;
 
 	TSPResults m_currentResults;
 	std::vector<salesman_problem::City> m_pendingCities;

@@ -1,4 +1,4 @@
-#include "../UIManager.h"
+#include "../GUIManager.h"
 
 #include "imgui-SFML.h"
 #include "imgui.h"
@@ -100,6 +100,13 @@ void GUIManager::Render()
 	if (ImGui::Checkbox("Enable Brute Force Calculation", &currentEnableBruteForceCalc))
 	{
 		m_tspManager.SetEnableBruteForceCalculation(currentEnableBruteForceCalc);
+	}
+
+	ImGui::Separator();
+	bool currentIsACSEnabled = m_tspManager.IsACSEnabled();
+	if (ImGui::Checkbox("Use ACS in Ant colony optimization", &currentIsACSEnabled))
+	{
+		m_tspManager.SetIsACSEnabled(currentIsACSEnabled);
 	}
 
 	ImGui::End();

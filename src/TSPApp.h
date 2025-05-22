@@ -2,8 +2,8 @@
 
 #include <cmath>
 
+#include "GUIManager.h"
 #include "TSPManager.h"
-#include "UIManager.h"
 #include "Window.h"
 
 class TSPApp
